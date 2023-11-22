@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri = " http://java.sun.com/jsp/jstl/core" prefix= "c" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix= "c" %>
 <c:set var = "contextPath" value = "${pageContext.request.contextPath}"> </c:set>
 <!DOCTYPE html>
 <html>
@@ -25,5 +25,29 @@
 		<!-- 탈퇴폼 RemoveMemberControler.doGet() -- RemoveMember.jsp -->
 		<!-- 탈퇴액션 RemoveMemberControler.doPost() --[session invaliadate]-- /member/loginMember  -->
 	</div>
+	
+	<!--  달력 -->
+	<div>
+		<h1>${targetY}년 ${targetM+1}월 </h1>
+		<table border = "1">
+			<tr>
+				<c:forEach var="i" begin="1" end ="${totalTd}" step="1">
+					<td>
+						<c:if test="${(i - beginBlank ) < 1 || ( i - beginBlank ) > lastD }">
+							&nbsp;
+						</c:if>
+						<c:if test="${!(i - beginBlank ) < 1 || ( i - beginBlank ) > lastD }">	
+						${i-beginBlank}
+						</c:if>
+						<c:if test = "${i<totalTd && i%7 == 0}">
+							<tr></tr>
+						</c:if>
+					</td>
+					
+				</c:forEach>
+			</tr>
+		</table>
+	</div>
+	
 </body>
 </html>
