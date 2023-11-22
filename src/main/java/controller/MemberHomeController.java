@@ -61,8 +61,9 @@ public class MemberHomeController extends HttpServlet {
 	      request.setAttribute("endBlank", endBlank);
 	      request.setAttribute("lastD", lastD);
 	      
-		Member member = (Member)session.getAttribute("loginmember");
-		request.setAttribute("member", member);
+		Member member = (Member)session.getAttribute("loginMember");
+		request.setAttribute("member", member); 
+		
 		request.getRequestDispatcher("/WEB-INF/view/member/memberHome.jsp").forward(request, response);
 	}
 	

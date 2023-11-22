@@ -40,7 +40,7 @@
          <a href="${nextUrl}">다음달</a>
       </div>
       
-      <table border="1">
+      <table border="10">
          <tr>
             <c:forEach var="i" begin="1" end="${totalTd}" step="1">
                <td>
