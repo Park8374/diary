@@ -26,28 +26,39 @@
 		<!-- 탈퇴액션 RemoveMemberControler.doPost() --[session invaliadate]-- /member/loginMember  -->
 	</div>
 	
-	<!--  달력 -->
-	<div>
-		<h1>${targetY}년 ${targetM+1}월 </h1>
-		<table border = "1">
-			<tr>
-				<c:forEach var="i" begin="1" end ="${totalTd}" step="1">
-					<td>
-						<c:if test="${(i - beginBlank ) < 1 || ( i - beginBlank ) > lastD }">
-							&nbsp;
-						</c:if>
-						<c:if test="${!(i - beginBlank ) < 1 || ( i - beginBlank ) > lastD }">	
-						${i-beginBlank}
-						</c:if>
-						<c:if test = "${i<totalTd && i%7 == 0}">
-							<tr></tr>
-						</c:if>
-					</td>
-					
-				</c:forEach>
-			</tr>
-		</table>
-	</div>
-	
+	<!-- 달력 -->
+   <div>
+      <h1>${targetY}년 ${targetM+1}월</h1>
+      
+      <div>
+         <a href="${pageContext.request.contextPath}/member/memberHome?targetY=${targetY}&targetM=${targetM-1}">이전달</a>
+         <!--  만약 href속성값 매개값이 많으면 c:url jstl을 사용하면 가독성 높일 수 있다. -->
+         <c:url var = "nextUrl" value="/member/memberHome">
+            <c:param name="targetY" value="${targetY}"></c:param>
+            <c:param name="targetM" value="${targetM+1}"></c:param>
+         </c:url>
+         <a href="${nextUrl}">다음달</a>
+      </div>
+      
+      <table border="1">
+         <tr>
+            <c:forEach var="i" begin="1" end="${totalTd}" step="1">
+               <td>
+                  <c:if test="${(i-beginBlank)<1 || (i-beginBlank)>lastD} ">
+                     &nbsp;
+                  </c:if>
+                  <c:if test="${!((i-beginBlank)<1 || (i-beginBlank)>lastD)}">
+                     ${i-beginBlank}
+                  </c:if>
+                  
+                  <c:if test="${i<totalTd&&i%7==0}">
+                     </tr><tr>                  
+                  </c:if>
+               </td>
+               
+            </c:forEach>
+         </tr>
+      </table>
+   </div>
 </body>
 </html>
