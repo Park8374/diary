@@ -1,12 +1,15 @@
 package controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import vo.Member;
 
 
 @WebServlet("/member/memberHome")
@@ -19,7 +22,8 @@ public class MemberHomeController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/member/loginMember");
 			return;
 		}
-		
+		Member member = (Member)session.getAttribute("loginmember");
+		request.setAttribute("member", member);
 		request.getRequestDispatcher("/WEB-INF/view/member/memberHome.jsp").forward(request, response);
 	}
 

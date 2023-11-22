@@ -24,6 +24,8 @@ public class ModifyMemberControler extends HttpServlet {
     	
     	// 해당 기능의 화면을 보여주기 위한 처리
         // 비밀번호 수정을 위한 폼을 보여줄 수 있습니다.
+        Member member = (Member)session.getAttribute("loginmember");
+		request.setAttribute("member", member);
         request.getRequestDispatcher("/WEB-INF/view/member/modifyMemberPw.jsp").forward(request, response);
     }
     

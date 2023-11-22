@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri = " http://java.sun.com/jsp/jstl/core" prefix= "c" %> 
+<c:set var = "contextPath" value = "${pageContext.request.contextPath}"> </c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +19,7 @@
     <input type="button" id="loginBtn" value="로그인">
 </form>
 <div>
-	<a href ="<%=request.getContextPath()%>/member/addMember">회원 가입</a>
+	<a href ="${pageContext.request.contextPath}/member/addMember">회원 가입</a>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
