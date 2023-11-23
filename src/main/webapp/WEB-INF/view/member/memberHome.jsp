@@ -48,7 +48,17 @@
                      &nbsp;
                   </c:if>
                   <c:if test="${!((i-beginBlank)<1 || (i-beginBlank)>lastD)}">
+                  	<a href = "">
                      ${i-beginBlank}
+                     </a>
+                     <div>
+                     	<c:forEach var ="m" items = "${list}">
+                     		<c:if test="${m.scheduleDay == (i-beginBlank) }">
+                     			<div>${m.cnt}개의 일정</div>
+                     			<div>${m.memo}</div>
+                     		</c:if>
+                     	</c:forEach>
+                     </div>
                   </c:if>
                   
                   <c:if test="${i<totalTd&&i%7==0}">
