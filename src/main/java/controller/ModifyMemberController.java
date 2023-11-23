@@ -12,7 +12,7 @@ import dao.MemberDao;
 import vo.Member;
 
 @WebServlet("/member/modifyPwMember") 
-public class ModifyMemberControler extends HttpServlet {
+public class ModifyMemberController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	 // 세션 유효성 검사

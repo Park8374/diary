@@ -26,26 +26,26 @@
 					</a>
 				</td>
 				<td>
-					<a href="?scheduleNo=${s.scheduleNo}">
-						삭제
-					</a>
+				    <a href="${pageContext.request.contextPath}/schedule/removeSchedule?scheduleNo=${s.scheduleNo}">
+				        삭제
+				    </a>
 				</td>
 			</tr>
 		</c:forEach>
 	</table>
 	
 	<h1>일정 추가</h1>
-	<form action="">
-		<input type="hidden" name="year" value="${targetY}">
-		<input type="hidden" name="month" value="${targetM+1}">
-		<input type="hidden" name="day" value="${targetD}">
-		<div>
-			<input type="radio" name="emoji" value="&#1F4DD;"><span>&#128110;</span>
-			<input type="radio" name="emoji" value="&#128186;">&#128186;
-			<input type="radio" name="emoji" value="&#127981;">&#127981;
-		</div>
-		<textarea rows="3" cols="80" name="scheduleMemo"></textarea>
-		<button type="button">일정추가</button>
+	<form action="${pageContext.request.contextPath}/schedule/addSchedule" method="post">
+	    <input type="hidden" name="year" value="${param.targetY}">
+	    <input type="hidden" name="month" value="${param.targetM + 1}">
+	    <input type="hidden" name="day" value="${param.targetD}">
+	    <div>
+	        <input type="radio" name="emoji" value="&#1F4DD;"><span>&#128110;</span>
+	        <input type="radio" name="emoji" value="&#128186;">&#128186;
+	        <input type="radio" name="emoji" value="&#127981;">&#127981;
+	    </div>
+	    <textarea rows="3" cols="80" name="scheduleMemo"></textarea>
+	    <button type="submit">일정추가</button>
 	</form>
 </body>
 </html>

@@ -131,7 +131,7 @@ public class ScheduleDao {
 			conn = ds.getConnection();
 
 			String sql = """
-						DELETE schedule
+						DELETE 
 						FROM schedule
 						WHERE schedule_no = ?
 					""";

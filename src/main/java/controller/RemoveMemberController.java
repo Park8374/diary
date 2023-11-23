@@ -14,7 +14,7 @@ import dao.MemberDao;
 import vo.Member;
 
 @WebServlet("/member/removeMember")
-public class RemoveMemberControler extends HttpServlet {
+public class RemoveMemberController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
