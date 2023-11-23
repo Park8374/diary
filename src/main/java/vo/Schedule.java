@@ -4,8 +4,15 @@ public class Schedule {
 	private int scheduleNo;
 	private String memberId;
 	private String scheduleDate;
+	private String scheduleEmoji;
 	private String scheduleMemo;
 	private String createdate;
+	public String getScheduleEmoji() {
+		return scheduleEmoji;
+	}
+	public void setScheduleEmoji(String scheduleEmoji) {
+		this.scheduleEmoji = scheduleEmoji;
+	}
 	public int getScheduleNo() {
 		return scheduleNo;
 	}
@@ -14,11 +21,6 @@ public class Schedule {
 	}
 	public String getMemberId() {
 		return memberId;
-	}
-	@Override
-	public String toString() {
-		return "Schedule [scheduleNo=" + scheduleNo + ", memberId=" + memberId + ", scheduleDate=" + scheduleDate
-				+ ", scheduleMemo=" + scheduleMemo + ", createdate=" + createdate + "]";
 	}
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
@@ -40,5 +42,11 @@ public class Schedule {
 	}
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
+	}
+	@Override
+	public String toString() {
+		return "Schedule [scheduleNo=" + scheduleNo + ", memberId=" + memberId + ", scheduleDate=" + scheduleDate
+				+ ", scheduleEmoji=" + scheduleEmoji + ", scheduleMemo=" + scheduleMemo + ", createdate=" + createdate
+				+ "]";
 	}
 }
