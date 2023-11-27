@@ -41,7 +41,7 @@
 	    <input type="hidden" name="month" value="${param.targetM + 1}">
 	    <input type="hidden" name="day" value="${param.targetD}">
 	    <div>
-	        <input type="radio" name="emoji" value="&#1F4DD;">&#128110;
+	        <input type="radio" name="emoji" value="&#128110;">&#128110;
 	        <input type="radio" name="emoji" value="&#128186;">&#128186;
 	        <input type="radio" name="emoji" value="&#127981;">&#127981;
 	    </div>
