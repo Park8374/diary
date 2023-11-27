@@ -161,4 +161,51 @@ public class ScheduleDao {
 		return success;
 	}
 	
+	public boolean addSchedule(Schedule schedule) {
+	    boolean success = false;
+	    Connection conn = null;
+	    PreparedStatement stmt = null;
+	    try {
+	        Context context = new InitialContext();
+	        // context.xml에서 커넥션풀 객체 로드
+	        DataSource ds = (DataSource) context.lookup("java:comp/env/jdbc/diary");
+	        conn = ds.getConnection();
+	        String sql = """
+	                    INSERT INTO schedule (
+	                    member_id,
+	                    schedule_date,
+	                    schedule_emoji,
+	                    schedule_memo
+	                    )
+	                    VALUES (?, ?, ?, ?)
+	                """;
+	        stmt = conn.prepareStatement(sql);
+	        stmt.setString(1, schedule.getMemberId());
+	        stmt.setString(2, schedule.getScheduleDate());
+	        stmt.setString(3, schedule.getScheduleEmoji());
+	        stmt.setString(4, schedule.getScheduleMemo());
+	        System.out.println(stmt + " <-- stmt");
+	        int row = stmt.executeUpdate();
+
+	        if (row > 0) {
+	            success = true;
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (stmt != null) {
+	                stmt.close();
+	            }
+	            if (conn != null) {
+	                conn.close();
+	            }
+	        } catch (SQLException e1) {
+	            e1.printStackTrace();
+	        }
+	    }
+	    return success;
+	}
+
+
 }

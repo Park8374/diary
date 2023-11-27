@@ -21,7 +21,7 @@
 				<td>${s.scheduleEmoji}${s.scheduleDate}</td>
 				<td>${s.scheduleMemo}</td>
 				<td>
-					<a href="?scheduleNo=${s.scheduleNo}">
+					<a href="${pageContext.request.contextPath}/schedule/modifySchedule?scheduleNo=${s.scheduleNo}">
 						수정
 					</a>
 				</td>

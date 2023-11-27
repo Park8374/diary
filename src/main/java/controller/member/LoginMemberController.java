@@ -1,4 +1,4 @@
-package controller;
+package controller.member;
 
 import java.io.IOException;
 
@@ -12,27 +12,21 @@ import javax.servlet.http.HttpSession;
 import dao.MemberDao;
 import vo.Member;
 
-@WebServlet("/member/addMember")
-public class AddMemberController extends HttpServlet {
-	// 폼
+@WebServlet("/member/loginMember")
+public class LoginMemberController extends HttpServlet {
+	// 로그인 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// session 유효성 검사
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginMember") != null) {
-			// 로그인이 되어 있는 상태
-			// 리다이렉트 할 컨트롤러 url
-			response.sendRedirect(request.getContextPath()+"/member/memberHome");
+			response.sendRedirect(request.getContextPath()+"/WEB-INF/view/member/memberHome");
 			return;
 		}
-		
-		// view forward
-		request.getRequestDispatcher("/WEB-INF/view/member/addMember.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/view/member/loginMember.jsp").forward(request, response);
 	}
-
-	// 액션
+	
+	// 로그인 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		
 		// session 유효성 검사
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginMember") != null) {
@@ -40,18 +34,29 @@ public class AddMemberController extends HttpServlet {
 			return;
 		}
 		
+		request.setCharacterEncoding("utf-8");
+		
 		String memberId = request.getParameter("memberId");
-		String memberPw = request.getParameter("memberPw");
+        String memberPw = request.getParameter("memberPw");
+		
+		// request.getParameter....
 		Member paramMember = new Member();
 		paramMember.setMemberId(memberId);
-		paramMember.setMemberPw(memberPw);
-		// 매개값 디버깅
-		System.out.println(paramMember.toString());
-		
+        paramMember.setMemberPw(memberPw);
+        
+        
 		MemberDao memberDao = new MemberDao();
-		int row = memberDao.insertMember(paramMember);
+		Member resultMember = memberDao.loginMember(paramMember);
 		
-		response.sendRedirect(request.getContextPath()+"/member/loginMember");
+		if(resultMember == null) {
+			// 로그인 실패 -> 로그인폼으로 리다이렉트
+			response.sendRedirect(request.getContextPath() + "/member/loginMember");
+            return;
+		}
+		
+		// 로그인 성공시
+		session.setAttribute("loginMember", resultMember);
+		response.sendRedirect(request.getContextPath()+"/member/memberHome"); 
 	}
 
 }

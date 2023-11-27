@@ -1,4 +1,4 @@
-package controller;
+package controller.schedule;
 
 import java.io.IOException;
 
