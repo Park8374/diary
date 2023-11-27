@@ -1,4 +1,4 @@
-package controller.schedule;
+package controller.Schedule;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,7 +14,7 @@ import dao.ScheduleDao;
 import vo.Member;
 import vo.Schedule;
 
-@WebServlet("/schedule/scheduleListByDay")
+@WebServlet("/schedule/scheduleListByDay") 
 public class ScheduleListByDayController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

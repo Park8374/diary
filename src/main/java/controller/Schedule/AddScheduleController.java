@@ -1,4 +1,4 @@
-package controller.schedule;
+package controller.Schedule;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,10 +19,6 @@ import vo.Schedule;
  */
 @WebServlet("/schedule/addSchedule")
 public class AddScheduleController extends HttpServlet {
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	HttpSession session = request.getSession();
@@ -54,7 +50,7 @@ public class AddScheduleController extends HttpServlet {
 
         // 일정 추가가 성공했는지에 따라 다른 페이지로 리다이렉트할 수 있도록 설정
         if (success) {
-            request.getRequestDispatcher("/WEB-INF/view/schedule/scheduleByDay.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/view/schedule/scheduleListByDay.jsp").forward(request, response);
         } else {
         	request.getRequestDispatcher("/WEB-INF/view/schedule/scheduleListByDay.jsp").forward(request, response);
         }

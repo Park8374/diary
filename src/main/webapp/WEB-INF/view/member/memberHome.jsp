@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var = "contextPath" value = "${pageContext.request.contextPath}"> </c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,20 +8,31 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>안녕하세요!! ${loginMember.memberId}님</h1>
-	<div>
-		<a href="${pageContext.request.contextPath}">로그아웃</a>
-		<a href="${pageContext.request.contextPath}/member/modifyPwMember"">비밀번호수정</a>
-		<a href="">회원탈퇴</a>
+	 <h1>Welcome, ${member.memberId} !</h1>
+    <p>당신은 ${member.memberNo}번쨰 회원니다.</p> 
+	<div> 
+		<a href ="${pageContext.request.contextPath}/member/logoutMember">로그아웃</a>
+		<!-- LogoutMemberController.doGet() --[session invaliadate]-- /member/loginMember -->
+
+		<a href ="${pageContext.request.contextPath}/member/modifyPwMember">비밀번호 변경</a>
+		<!-- 수정폼 ModifyMemberControler.doGet() -- modifyMemberPw.jsp -->
+		<!-- 수정액션 ModifyMemberControler.doPost() --[session invaliadate]-- /member/loginMember  -->
+
+		<a href ="${pageContext.request.contextPath}/member/removeMember">회원 탈퇴</a>
+		<!-- 탈퇴폼 RemoveMemberControler.doGet() -- RemoveMember.jsp -->
+		<!-- 탈퇴액션 RemoveMemberControler.doPost() --[session invaliadate]-- /member/loginMember  -->
 	</div>
+	
+	<%-- 공지사항 --%>
+	<h2>최신 공지사항 : </h2>-
+	<div></div>
 	
 	<!-- 달력 -->
 	<div>
-		<h1>${targetY}년 ${targetM+1}월</h1>
+		<h3>${targetY}년 ${targetM+1}월</h3>
 		
 		<div>
 			<a href="${pageContext.request.contextPath}/member/memberHome?targetY=${targetY}&targetM=${targetM-1}">이전달</a>
-			
 			<!-- 만약 href속성값 매개값이 많으면 c:url jstl을 사용하면 가독성 높일 수 있다 -->
 			<c:url var = "nextUrl" value="/member/memberHome">
 				<c:param name="targetY" value="${targetY}"></c:param>

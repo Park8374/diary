@@ -1,4 +1,4 @@
-package controller.member;
+package controller.Member;
 
 import java.io.IOException;
 import java.util.Calendar;

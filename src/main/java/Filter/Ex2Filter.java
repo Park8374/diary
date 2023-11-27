@@ -11,19 +11,17 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
 
 /**
- * Servlet Filter implementation class Ex1
+ * Servlet Filter implementation class Ex2Filter
  */
 @WebFilter("/member/*")
-public class Ex1 extends HttpFilter implements Filter {
+public class Ex2Filter extends HttpFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		// place your code here
-
-		// pass the request along the filter chain
-		System.out.println("(전)필터 / * ");
+		System.out.println("(전)필터 /member/*");
+		
 		chain.doFilter(request, response);
-		System.out.println("(후)필터 / * ");
+		
+		System.out.println("(후)필터 /member/*");
 	}
 
 }

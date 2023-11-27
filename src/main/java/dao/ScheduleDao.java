@@ -16,57 +16,6 @@ import javax.sql.DataSource;
 import vo.Schedule;
 
 public class ScheduleDao {
-	public List<Schedule> selectScheduleByDay(
-						String memberId, int year, int month, int day) {
-		List<Schedule> list = new ArrayList<>();
-
-		Connection conn = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-
-		try {
-			Context context = new InitialContext();
-			// context.xml에서 커넥션풀 객체 로드
-			DataSource ds = (DataSource) context.lookup("java:comp/env/jdbc/diary");
-			conn = ds.getConnection();
-
-			String sql = """
-					SELECT 
-						schedule_no scheduleNo, 
-						schedule_date scheduleDate,
-						schedule_memo scheduleMemo 
-					FROM schedule
-					WHERE member_id = ?
-					AND YEAR(schedule_date) = ?
-					AND MONTH(schedule_date) = ?
-					AND DAY(schedule_date) = ?
-				""";
-			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, memberId);
-			stmt.setInt(2, year);
-			stmt.setInt(3, month);
-			stmt.setInt(4, day);
-			rs = stmt.executeQuery();
-			while(rs.next()) {
-				Schedule s = new Schedule();
-				s.setScheduleNo(rs.getInt("scheduleNo"));
-				s.setScheduleDate(rs.getString("scheduleDate"));
-				s.setScheduleMemo(rs.getString("scheduleMemo"));
-				list.add(s);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				rs.close();
-				stmt.close();
-				conn.close();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-		}
-		return list;
-	}
 	
 	public List<Map<String, Object>> selectScheduleByMonth(String memberId, int year, int month) {
 		List<Map<String, Object>> list = new ArrayList<>();
@@ -119,6 +68,61 @@ public class ScheduleDao {
 		}
 		return list;
 	}
+	
+	public List<Schedule> selectScheduleByDay(
+			String memberId, int year, int month, int day) {
+		List<Schedule> list = new ArrayList<>();
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Context context = new InitialContext();
+			// context.xml에서 커넥션풀 객체 로드
+			DataSource ds = (DataSource) context.lookup("java:comp/env/jdbc/diary");
+			conn = ds.getConnection();
+			
+			String sql = """
+							SELECT 
+							schedule_no scheduleNo, 
+							schedule_date scheduleDate,
+							schedule_memo scheduleMemo, 
+							schedule_emoji scheduleEmoji
+							FROM schedule
+							WHERE member_id = ?
+									AND YEAR(schedule_date) = ?
+									AND MONTH(schedule_date) = ?
+									AND DAY(schedule_date) = ?
+													""";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, memberId);
+			stmt.setInt(2, year);
+			stmt.setInt(3, month);
+			stmt.setInt(4, day);
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				Schedule s = new Schedule();
+				s.setScheduleNo(rs.getInt("scheduleNo"));
+				s.setScheduleDate(rs.getString("scheduleDate"));
+				s.setScheduleMemo(rs.getString("scheduleMemo"));
+				s.setScheduleEmoji(rs.getString("scheduleEmoji"));
+				list.add(s);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
 	
 	public boolean deleteSchedule(int scheduleNo) {
 		boolean success = false;
@@ -207,5 +211,43 @@ public class ScheduleDao {
 	    return success;
 	}
 
+	// modify(수정)
+		public int modifySchedule (String scheduleMemo , String scheduleEmoji , int scheduleNo) {
+			int row = 0;
+			Connection conn = null;
+			PreparedStatement stmt = null;
+			
+			try {
+				// Tomcat context.xml 설정을 로드!
+				Context context = new InitialContext(); 
+					// context.xml에서 커넥션풀 객체를 로드!
+				DataSource ds = (DataSource)context.lookup("java:comp/env/jdbc/diary");
+				conn = ds.getConnection();
+				String sql="""
+							UPDATE schedule SET schedule_memo=? ,
+												schedule_emoji=?
+							WHERE schedule_no = ?
+						""";
+				stmt = conn.prepareStatement(sql);
+				stmt.setString(1, scheduleMemo);
+				stmt.setString(2, scheduleEmoji);
+				stmt.setInt(3, scheduleNo);			
 
+				System.out.println(stmt + "<-stmt");
+				row = stmt.executeUpdate();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				
+				try {				
+					stmt.close();
+					conn.close();
+					
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+			return row;
+		}
 }

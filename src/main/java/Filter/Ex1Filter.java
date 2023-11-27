@@ -11,16 +11,18 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
 
 /**
- * Servlet Filter implementation class Ex2
+ * Servlet Filter implementation class Ex1
  */
-@WebFilter("/*")
-public class EncodingFilter extends HttpFilter implements Filter {
+@WebFilter("/member/addMember")
+public class Ex1Filter extends HttpFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
-		request.setCharacterEncoding("utf-8");
+		System.out.println("(전)필터 /member/addMember");
 		
 		chain.doFilter(request, response);
+		
+		System.out.println("(후)필터 /member/addMember");
 	}
 
 }

@@ -11,19 +11,16 @@ import javax.servlet.annotation.WebListener;
  *
  */
 @WebListener
-public class MyContextListener implements ServletContextListener, ServletContextAttributeListener {
+public class MyContextListener implements ServletContextListener {
 
-    public void contextDestroyed(ServletContextEvent sce)  { 
-         // TODO Auto-generated method stub
-    	 
+    public void contextDestroyed(ServletContextEvent sce)  {      
     }
 
-  
     public void contextInitialized(ServletContextEvent sce)  { 
-         // application.setAttribute()             
+    	// application.setAttribute()
     	sce.getServletContext().setAttribute("currentCnt", 0);
-    	System.out.println("MyContextListener currentCnt" +
-    				sce.getServletContext().getAttribute("currentCnt"));
-    }      
+    	System.out.println("MyContextListener currentCnt : "
+    			+ sce.getServletContext().getAttribute("currentCnt"));
+    }
 	
 }

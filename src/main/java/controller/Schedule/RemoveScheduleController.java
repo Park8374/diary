@@ -1,4 +1,4 @@
-package controller.schedule;
+package controller.Schedule;
 
 import java.io.IOException;
 
@@ -29,9 +29,12 @@ public class RemoveScheduleController extends HttpServlet {
         ScheduleDao scheduleDao = new ScheduleDao();
         boolean success = scheduleDao.deleteSchedule(scheduleNo);
         
-        if(success != false) {
+        if(success) {
             System.out.println("삭제성공");
             request.getRequestDispatcher("/WEB-INF/view/schedule/scheduleListByDay.jsp").forward(request, response);
+         } else {
+        	 System.out.println("삭제실페");
+        	 request.getRequestDispatcher("/WEB-INF/view/schedule/scheduleListByDay.jsp").forward(request, response);
          }
          
          

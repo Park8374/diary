@@ -11,16 +11,17 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
 
 /**
- * Servlet Filter implementation class Ex2
+ * Servlet Filter implementation class Ex3Filter
  */
 @WebFilter("/*")
-public class EncodingFilter extends HttpFilter implements Filter {
-
+public class Ex3Filter extends HttpFilter implements Filter {
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		
-		request.setCharacterEncoding("utf-8");
+		System.out.println("(전)필터 /*");
 		
 		chain.doFilter(request, response);
+		
+		System.out.println("(후)필터 /*");
 	}
 
 }
